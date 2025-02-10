@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Banco de dados de exercícios (pré-definidos)
-exercise_database = {
+banco_de_exercicios = {
     "Iniciante": [
         "Flexão de braço (Push-up)",
         "Agachamento (Squat)",
@@ -25,76 +25,71 @@ exercise_database = {
     ]
 }
 
-
 # Função para o formulário de cadastro
-def user_registration():
+def formulario_cadastro():
     print("=== CADASTRO DE USUÁRIO ===")
-    user_data = {}
+    dados_usuario = {}
 
     # Informações básicas
-    user_data['nome'] = input("1. Nome (opcional): ").strip()
-    user_data['idade'] = int(input("2. Idade: "))
-    user_data['peso'] = float(input("3. Peso (kg): "))
-    user_data['altura'] = float(input("4. Altura (cm): "))
+    dados_usuario['nome'] = input("1. Nome (opcional): ").strip()
+    dados_usuario['idade'] = int(input("2. Idade: "))
+    dados_usuario['peso'] = float(input("3. Peso (kg): "))
+    dados_usuario['altura'] = float(input("4. Altura (cm): "))
 
     # Nível de experiência
     print("5. Nível de experiência:")
     print("[1] Iniciante [2] Intermediário [3] Avançado")
-    experience_map = {1: 'Iniciante', 2: 'Intermediário', 3: 'Avançado'}
-    user_data['nivel_experiencia'] = experience_map[int(input("Escolha uma opção (1-3): "))]
+    mapa_nivel = {1: 'Iniciante', 2: 'Intermediário', 3: 'Avançado'}
+    dados_usuario['nivel_experiencia'] = mapa_nivel[int(input("Escolha uma opção (1-3): "))]
 
-    return user_data
-
+    return dados_usuario
 
 # Função para salvar os dados do usuário em uma planilha personalizada
-def save_to_spreadsheet(user_data):
+def salvar_planilha(dados_usuario):
     # Define o nome do arquivo com base no nome do usuário
-    file_name = f"{user_data['nome'].lower().replace(' ', '_')}.csv" if user_data['nome'] else "usuario.csv"
-
+    nome_arquivo = f"{dados_usuario['nome'].lower().replace(' ', '_')}.csv" if dados_usuario['nome'] else "usuario.csv"
+    
     # Criando um DataFrame com os dados do usuário
-    df = pd.DataFrame([user_data])
+    df = pd.DataFrame([dados_usuario])
 
     # Salvando os dados em um arquivo CSV
     try:
         # Verifica se o arquivo já existe
-        existing_data = pd.read_csv(file_name)
-        updated_data = pd.concat([existing_data, df], ignore_index=True)
-        updated_data.to_csv(file_name, index=False)
+        dados_existentes = pd.read_csv(nome_arquivo)
+        dados_atualizados = pd.concat([dados_existentes, df], ignore_index=True)
+        dados_atualizados.to_csv(nome_arquivo, index=False)
     except FileNotFoundError:
         # Se o arquivo não existir, cria um novo
-        df.to_csv(file_name, index=False)
+        df.to_csv(nome_arquivo, index=False)
 
-    print(f"\nOs dados foram salvos na planilha '{file_name}'.")
-
+    print(f"\nOs dados foram salvos na planilha '{nome_arquivo}'.")
 
 # Função para recomendar exercícios
-def recommend_exercises(user_data):
-    nivel_experiencia = user_data['nivel_experiencia']
-    exercises = exercise_database.get(nivel_experiencia, [])
+def recomendar_exercicios(dados_usuario):
+    nivel_experiencia = dados_usuario['nivel_experiencia']
+    exercicios = banco_de_exercicios.get(nivel_experiencia, [])
 
     print("\n=== EXERCÍCIOS RECOMENDADOS ===")
-    if exercises:
-        for i, exercise in enumerate(exercises, 1):
-            print(f"{i}. {exercise}")
+    if exercicios:
+        for i, exercicio in enumerate(exercicios, 1):
+            print(f"{i}. {exercicio}")
     else:
         print("Nenhum exercício disponível para este nível.")
 
-
 # Função para exibir uma mensagem personalizada
-def display_message(user_data):
+def exibir_mensagem_personalizada(dados_usuario):
     print("\n=== RESUMO DO USUÁRIO ===")
-    print(f"Olá, {user_data['nome'] or 'Usuário'}!")
-    print(f"Idade: {user_data['idade']} anos")
-    print(f"Peso: {user_data['peso']} kg")
-    print(f"Altura: {user_data['altura']} cm")
-    print(f"Nível de experiência: {user_data['nivel_experiencia']}")
+    print(f"Olá, {dados_usuario['nome'] or 'Usuário'}!")
+    print(f"Idade: {dados_usuario['idade']} anos")
+    print(f"Peso: {dados_usuario['peso']} kg")
+    print(f"Altura: {dados_usuario['altura']} cm")
+    print(f"Nível de experiência: {dados_usuario['nivel_experiencia']}")
     print("\nBem-vindo ao seu plano de treinos personalizado!")
-
 
 # Executando o programa
 if __name__ == "__main__":
     print("Bem-vindo ao Personal Trainer Virtual!")
-    user_data = user_registration()
-    save_to_spreadsheet(user_data)
-    display_message(user_data)
-    recommend_exercises(user_data)
+    dados_usuario = formulario_cadastro()
+    salvar_planilha(dados_usuario)
+    exibir_mensagem_personalizada(dados_usuario)
+    recomendar_exercicios(dados_usuario)
