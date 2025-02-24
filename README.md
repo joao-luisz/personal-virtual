@@ -2,9 +2,9 @@ O Personal Trainer Virtual é uma aplicação desktop desenvolvida em Python que
 
 # Funcionalidades Principais
 ## 1. Gerenciamento de Usuários
- ####Cadastro de novos usuários com informações detalhadas (nome, idade, peso, altura, nível de experiência, objetivo, etc.).
- ####Login seguro com validação de credenciais.
- ####Recuperação de informações do usuário para personalização das funcionalidades.
+ #### Cadastro de novos usuários com informações detalhadas (nome, idade, peso, altura, nível de experiência, objetivo, etc.).
+ #### Login seguro com validação de credenciais.
+ #### Recuperação de informações do usuário para personalização das funcionalidades.
 
 ## 2. Geração de Planilhas de Treino
 ### Criação de planilhas de treino personalizadas com base em:
