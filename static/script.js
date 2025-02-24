@@ -3,7 +3,7 @@ document.getElementById('preferences-form').addEventListener('submit', async (e)
     const muscleGroup = document.getElementById('muscle-group').value;
     const equipment = document.getElementById('equipment').value;
 
-    const response = await fetch('https://seu_usuario.pythonanywhere.com/recommend', {
+    const response = await fetch('https://joaoluisz.pythonanywhere.com/recommend', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
